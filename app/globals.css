@@ -186,8 +186,33 @@ button:has(+ .panel:popover-open) .chevron {
   width: 100%;
 }
 
+.panel-full::backdrop {
+  backdrop-filter: blur(0);
+  background: transparent;
+  top: 4.75rem;
+  transition:
+    backdrop-filter 400ms var(--ease-settle),
+    overlay 400ms allow-discrete,
+    display 400ms allow-discrete;
+}
+
+.panel-full:popover-open::backdrop {
+  backdrop-filter: blur(12px);
+}
+
+@starting-style {
+  .panel-full:popover-open::backdrop {
+    backdrop-filter: blur(0);
+  }
+}
+
+html:has(.panel-full:popover-open) {
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .panel,
+  .panel-full::backdrop,
   .stroke-link,
   .action,
   .chevron {
