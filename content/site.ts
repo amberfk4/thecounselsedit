@@ -31,9 +31,9 @@ export type Photo = {
 };
 
 export const heroPhoto: Photo = {
-  slug: "lobby",
-  alt: "A hotel lobby with a green kiosk and postbox on a checked marble floor",
-  caption: "Rosewood, Kiosk Worldwide",
+  slug: "arena",
+  alt: "An empty indoor riding arena under a timber roof, set for a fashion show",
+  caption: "Studio Boum x Stella McCartney W26 PFW",
 };
 
 export const about = {
@@ -45,22 +45,22 @@ export const projects: Photo[] = [
   {
     slug: "table",
     alt: "A long winding dinner table in a dark room, lined with a miniature city skyline",
-    caption: "Hermès, Williamsburg Store Opening Event",
+    caption: "Studio Boum x Hermès - Williamsburg Store Opening",
   },
   {
-    slug: "vessel",
-    alt: "A pale ceramic vessel against a blue tiled grid with the JW Anderson name",
-    caption: "JW Anderson, SS27 Lookbook",
+    slug: "trainers",
+    alt: "Three pairs of running shoes in silver, brown and pale blue, seen from above",
+    caption: "Satisfy x adidas",
   },
   {
-    slug: "show",
-    alt: "Models and horses crossing a sand arena during a fashion show, watched by a full crowd",
-    caption: "Stella McCartney, Paris Fashion Show W26",
+    slug: "bag",
+    alt: "A woven black leather bag resting on a bed of dark grapes",
+    caption: "Stella McCartney x Veuve Clicquot",
   },
   {
-    slug: "cafe",
-    alt: "A Parisian courtyard cafe with pink tablecloths and small brass lamps",
-    caption: "Pandora, Paris Wonders Cafe",
+    slug: "shoes",
+    alt: "A stack of suede shoes in red and brown with printed insoles",
+    caption: "Damson Madder x Clarks",
   },
 ];
 
@@ -69,9 +69,9 @@ export const services = {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   items: ["Lorem ipsum dolor", "Consectetur adipiscing", "Tempor incididunt", "Magna aliqua enim"],
   photo: {
-    slug: "chest",
-    alt: "A carved dark wooden chest holding raw stones, set against crashing water",
-    caption: "JW Anderson, SS27 Lookbook",
+    slug: "popup",
+    alt: "A curved pop-up interior in warm taupe, with lit shelves and a central plinth",
+    caption: "Studio Boum x Rhode - NY Pop Up",
   },
 };
 

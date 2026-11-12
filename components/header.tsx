@@ -33,7 +33,7 @@ export function Header() {
           {site.name}_
         </a>
 
-        <nav aria-label="Main" className="absolute left-1/2 hidden -translate-x-1/2 gap-7 md:flex">
+        <nav aria-label="Main" className="absolute left-1/2 hidden -translate-x-1/2 gap-7 lg:flex">
           {navigation.map((item) => (
             <a key={item.href} className="nav-link stroke-link" href={item.href}>
               {item.label}
@@ -44,7 +44,7 @@ export function Header() {
         <button
           type="button"
           popoverTarget={contactPanelId}
-          className="nav-link hidden h-full cursor-pointer items-center gap-2 md:flex"
+          className="nav-link hidden h-full cursor-pointer items-center gap-2 lg:flex"
         >
           Get in contact
           <Chevron />
@@ -58,7 +58,7 @@ export function Header() {
         <button
           type="button"
           popoverTarget={menuPanelId}
-          className="nav-link flex h-full cursor-pointer items-center gap-2 md:hidden"
+          className="nav-link flex h-full cursor-pointer items-center gap-2 lg:hidden"
         >
           Menu
           <Chevron />

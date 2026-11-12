@@ -10,7 +10,7 @@
   --font-display: var(--font-pagella);
   --font-sans: var(--font-quattrocento);
 
-  --spacing-bar: 4.75rem;
+  --spacing-bar: 5.5rem;
   --spacing-gutter: clamp(1rem, 2vw, 1.75rem);
   --spacing-panel: clamp(3rem, 5vw, 5rem);
 
@@ -74,10 +74,16 @@ p {
 .wordmark {
   color: var(--color-taupe);
   font-family: var(--font-display);
-  font-size: 1.625rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
+}
+
+@media (max-width: 47.99rem) {
+  .wordmark {
+    font-size: clamp(1.25rem, 6.4vw, 1.625rem);
+  }
 }
 
 .nav-link {
@@ -189,7 +195,7 @@ button:has(+ .panel:popover-open) .chevron {
 .panel-full::backdrop {
   backdrop-filter: blur(0);
   background: transparent;
-  top: 4.75rem;
+  top: 5.5rem;
   transition:
     backdrop-filter 400ms var(--ease-settle),
     overlay 400ms allow-discrete,
