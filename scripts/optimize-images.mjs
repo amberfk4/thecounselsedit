@@ -7,7 +7,7 @@ const outputRoot = "public/images/projects";
 const widths = [640, 1080, 1600, 2400];
 
 const photos = [
-  ["arena", "Stella McCartney - Paris Fashion Show W26/2. STUDIO-BOUM-STELLA-CLEAN-SHOT-03-AI.jpg"],
+  ["show", "Stella McCartney - Paris Fashion Show W26/1. STUDIO-BOUM-STELLA-SHOW-86.JPG"],
   ["table", "Hermès - Williamsburg Store Opening Event/5. DanielSalemi-Hermes-16297.jpg"],
   ["trainers", "Satisfy x adidas/20. Satisfy Image 20 Screenshot 2026-11-07 100136.png"],
   ["bag", "Stella McCartney x Veuve Clicquot/22. IMG_3539.jpg"],

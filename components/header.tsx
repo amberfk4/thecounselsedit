@@ -46,7 +46,7 @@ export function Header() {
           popoverTarget={contactPanelId}
           className="nav-link hidden h-full cursor-pointer items-center gap-2 lg:flex"
         >
-          Get in contact
+          Contact us
           <Chevron />
         </button>
         <div id={contactPanelId} popover="auto" className="panel min-w-72">

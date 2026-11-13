@@ -18,10 +18,9 @@ export const navigation = [
 ];
 
 export const headline = {
-  first: "Legal consultancy for fashion",
-  second: "and the creative industries",
+  lines: ["Legal consultancy", "for fashion", "and the creative industries"],
   support:
-    "Commercial legal advice with an in-house perspective, for brands that want experienced counsel without private-practice fees or permanent headcount.",
+    "Personalised legal support for brands, designers and creative agencies who want experienced counsel on a flexible basis.",
 };
 
 export type Photo = {
@@ -31,8 +30,8 @@ export type Photo = {
 };
 
 export const heroPhoto: Photo = {
-  slug: "arena",
-  alt: "An empty indoor riding arena under a timber roof, set for a fashion show",
+  slug: "show",
+  alt: "Models walking a curved runway through a sand arena during a fashion show, watched by a full crowd",
   caption: "Studio Boum x Stella McCartney W26 PFW",
 };
 
@@ -78,7 +77,6 @@ export const services = {
 export const brands = [
   { name: "Varley", file: "varley", width: 376, height: 47, displayWidth: 190 },
   { name: "Stella McCartney", file: "stella-mccartney", width: 382, height: 20, displayWidth: 235 },
-  { name: "Erdem", file: "erdem", width: 337, height: 69, displayWidth: 140 },
   { name: "Damson Madder", file: "damson-madder", width: 381, height: 31, displayWidth: 200 },
   { name: "Satisfy", file: "satisfy", width: 363, height: 67, displayWidth: 135 },
   { name: "Studio Boum", file: "studio-boum", width: 282, height: 129, displayWidth: 108 },

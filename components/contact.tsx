@@ -20,7 +20,7 @@ export function Contact() {
             {site.instagram.handle}
           </a>
         </div>
-        <p className="md:ml-auto md:self-end">© 2026 {site.name}</p>
+        <p className="md:ml-auto md:self-end">© 2026 {site.name} Ltd</p>
       </div>
     </footer>
   );
