@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "the-counsels-edit",
+  "name": "thecounselsedit",
   "compatibility_date": "2026-10-30",
   "assets": {
     "directory": "./out",
