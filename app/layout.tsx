@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Quattrocento_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { site } from "@/content/site";
+import { settings } from "@/lib/content";
 import "./globals.css";
 
 const pagella = localFont({
@@ -22,11 +23,11 @@ const quattrocento = Quattrocento_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: `${site.name}_ | Legal consultancy for fashion and the creative industries`,
-  description: site.description,
+  description: settings.description,
   alternates: { canonical: "/" },
   openGraph: {
     title: `${site.name}_`,
-    description: site.description,
+    description: settings.description,
     url: "/",
     siteName: site.name,
     type: "website",

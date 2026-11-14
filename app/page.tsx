@@ -6,15 +6,16 @@ import { Hero } from "@/components/hero";
 import { Services } from "@/components/services";
 import { Work } from "@/components/work";
 import { site } from "@/content/site";
+import { instagramUrl, settings } from "@/lib/content";
 
 const organisation = {
   "@context": "https://schema.org",
   "@type": "LegalService",
   name: site.name,
   url: site.url,
-  email: site.email,
-  description: site.description,
-  sameAs: [site.instagram.url],
+  email: settings.email,
+  description: settings.description,
+  sameAs: [instagramUrl],
 };
 
 export default function Home() {

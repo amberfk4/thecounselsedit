@@ -1,4 +1,5 @@
 import { navigation, site } from "@/content/site";
+import { home, instagramUrl, settings } from "@/lib/content";
 import { PanelLink } from "./panel-link";
 
 const contactPanelId = "contact-panel";
@@ -15,11 +16,11 @@ function Chevron() {
 function ContactLinks() {
   return (
     <>
-      <a className="stroke-link" href={`mailto:${site.email}`}>
-        {site.email}
+      <a className="stroke-link" href={`mailto:${settings.email}`}>
+        {settings.email}
       </a>
-      <a className="stroke-link" href={site.instagram.url} target="_blank" rel="noreferrer">
-        {site.instagram.handle}
+      <a className="stroke-link" href={instagramUrl} target="_blank" rel="noreferrer">
+        @{settings.instagram}
       </a>
     </>
   );
@@ -46,7 +47,7 @@ export function Header() {
           popoverTarget={contactPanelId}
           className="nav-link hidden h-full cursor-pointer items-center gap-2 lg:flex"
         >
-          Contact us
+          {home.contactLabel}
           <Chevron />
         </button>
         <div id={contactPanelId} popover="auto" className="panel min-w-72">

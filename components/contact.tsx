@@ -1,4 +1,7 @@
 import { navigation, site } from "@/content/site";
+import { instagramUrl, settings } from "@/lib/content";
+
+const year = new Date().getFullYear();
 
 export function Contact() {
   return (
@@ -13,14 +16,14 @@ export function Contact() {
           ))}
         </nav>
         <div className="flex flex-col items-start gap-1">
-          <a className="stroke-link" href={`mailto:${site.email}`}>
-            {site.email}
+          <a className="stroke-link" href={`mailto:${settings.email}`}>
+            {settings.email}
           </a>
-          <a className="stroke-link" href={site.instagram.url} target="_blank" rel="noreferrer">
-            {site.instagram.handle}
+          <a className="stroke-link" href={instagramUrl} target="_blank" rel="noreferrer">
+            @{settings.instagram}
           </a>
         </div>
-        <p className="md:ml-auto md:self-end">© 2026 {site.name} Ltd</p>
+        <p className="md:ml-auto md:self-end">© {year} {settings.copyright}</p>
       </div>
     </footer>
   );

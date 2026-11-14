@@ -1,34 +1,32 @@
-import Image from "next/image";
-import { services } from "@/content/site";
+import { home } from "@/lib/content";
+import { SanityImage } from "./sanity-image";
 
 export function Services() {
+  const { heading, intro, items, photo } = home.services;
+
   return (
     <section id="services" className="grid bg-brown text-white md:grid-cols-2">
       <div className="flex flex-col md:border-r md:border-navy">
-        <h2 className="border-b border-navy p-gutter">Services</h2>
+        <h2 className="border-b border-navy p-gutter">{heading}</h2>
         <div className="flex flex-1 flex-col p-gutter">
-          <p className="max-w-[34rem]">{services.intro}</p>
+          {intro && <p className="max-w-[34rem]">{intro}</p>}
           <ul className="mt-12 flex flex-col gap-2 font-display text-headline">
-            {services.items.map((item) => (
+            {items.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <p className="mt-16 hidden text-small md:mt-auto md:block" aria-hidden="true">
-            {services.photo.caption}
-          </p>
+          {photo.credit && (
+            <p className="mt-16 hidden text-small md:mt-auto md:block" aria-hidden="true">
+              {photo.credit}
+            </p>
+          )}
         </div>
       </div>
       <figure>
         <div className="relative aspect-[4/5] md:aspect-auto md:h-full md:min-h-[80svh]">
-          <Image
-            src={`/images/projects/${services.photo.slug}.webp`}
-            alt={services.photo.alt}
-            fill
-            sizes="(min-width: 48rem) 50vw, 100vw"
-            className="object-cover"
-          />
+          <SanityImage photo={photo} sizes="(min-width: 48rem) 50vw, 100vw" />
         </div>
-        <figcaption className="p-gutter text-small md:hidden">{services.photo.caption}</figcaption>
+        {photo.credit && <figcaption className="p-gutter text-small md:hidden">{photo.credit}</figcaption>}
       </figure>
     </section>
   );

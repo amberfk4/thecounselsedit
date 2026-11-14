@@ -5,10 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "preview": "next build && wrangler dev",
-    "deploy": "next build && wrangler deploy",
+    "predev": "node scripts/sync-sanity.mjs --remote",
+    "prebuild": "node scripts/sync-sanity.mjs",
+    "postbuild": "node scripts/sync-sanity.mjs --copy",
+    "sync": "node scripts/sync-sanity.mjs",
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
     "lint": "eslint",
-    "images": "node scripts/optimize-images.mjs"
+    "studio": "npm --prefix studio run dev",
+    "studio:deploy": "npm --prefix studio run deploy"
   },
   "dependencies": {
     "next": "16.4.5",
@@ -22,7 +27,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
-    "sharp": "^0.35.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.154.0"

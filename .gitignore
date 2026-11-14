@@ -38,3 +38,6 @@ next-env.d.ts
 .dev.vars*
 
 TCE_Website_Brief.pdf
+
+/.sanity-media/
+/content/sanity-content.json
