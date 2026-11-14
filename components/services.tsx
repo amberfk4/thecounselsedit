@@ -1,18 +1,19 @@
-import { home } from "@/lib/content";
+import { home, services } from "@/lib/content";
 import { SanityImage } from "./sanity-image";
+import { SectionHeading } from "./section-heading";
 
 export function Services() {
-  const { heading, intro, items, photo } = home.services;
+  const { heading, intro, photo } = home.services;
 
   return (
     <section id="services" className="grid bg-brown text-white md:grid-cols-2">
       <div className="flex flex-col md:border-r md:border-navy">
-        <h2 className="border-b border-navy p-gutter">{heading}</h2>
+        <SectionHeading title={heading} link={{ href: "/services", label: "Find out more" }} />
         <div className="flex flex-1 flex-col p-gutter">
           {intro && <p className="max-w-[34rem]">{intro}</p>}
           <ul className="mt-12 flex flex-col gap-2 font-display text-headline">
-            {items.map((item) => (
-              <li key={item}>{item}</li>
+            {services.items.map((item) => (
+              <li key={item.name}>{item.name}</li>
             ))}
           </ul>
           {photo.credit && (

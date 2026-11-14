@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Quattrocento_Sans } from "next/font/google";
 import localFont from "next/font/local";
+import { Contact } from "@/components/contact";
+import { Header } from "@/components/header";
 import { site } from "@/content/site";
 import { settings } from "@/lib/content";
 import "./globals.css";
@@ -41,7 +43,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-GB" className={`${pagella.variable} ${quattrocento.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+        <Contact />
+      </body>
     </html>
   );
 }

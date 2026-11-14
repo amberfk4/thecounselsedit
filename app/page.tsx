@@ -1,7 +1,5 @@
 import { About } from "@/components/about";
 import { Clients } from "@/components/clients";
-import { Contact } from "@/components/contact";
-import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
 import { Services } from "@/components/services";
 import { Work } from "@/components/work";
@@ -25,7 +23,6 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organisation) }}
       />
-      <Header />
       <main>
         <Hero />
         <About />
@@ -33,7 +30,6 @@ export default function Home() {
         <Work />
         <Services />
       </main>
-      <Contact />
     </>
   );
 }

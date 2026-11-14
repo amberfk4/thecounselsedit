@@ -19,6 +19,8 @@ const mode = process.argv.includes("--remote") ? "remote" : process.argv.include
 
 const assetFields = `{ _id, url, "width": metadata.dimensions.width, "height": metadata.dimensions.height }`;
 const photoFields = `{ credit, alt, "crop": image.crop, "hotspot": image.hotspot, "asset": image.asset->${assetFields} }`;
+const imageFields = `{ alt, crop, hotspot, "asset": asset->${assetFields} }`;
+const pageFields = `title, intro, description`;
 
 const query = `{
   "settings": *[_id == "siteSettings"][0]{ email, instagram, copyright, description },
@@ -30,13 +32,24 @@ const query = `{
     aboutStatement,
     aboutText,
     clientsHeading,
-    "clients": clients[defined(logo.asset)]{ name, width, "crop": logo.crop, "asset": logo.asset->${assetFields} },
     workHeading,
-    "work": work[defined(image.asset)]${photoFields},
     servicesHeading,
     servicesIntro,
-    services,
     "servicesPhoto": servicesPhoto${photoFields}
+  },
+  "about": *[_id == "aboutPage"][0]{ ${pageFields}, statement, paragraphs, "photo": photo${photoFields} },
+  "work": *[_id == "workPage"][0]{
+    ${pageFields},
+    "projects": projects[defined(title) && count(images[defined(asset)]) > 0]{
+      title,
+      "slug": slug.current,
+      "images": images[defined(asset)]${imageFields}
+    }
+  },
+  "services": *[_id == "servicesPage"][0]{ ${pageFields}, "items": services[defined(name)]{ name, description }, "photo": photo${photoFields} },
+  "clients": *[_id == "clientsPage"][0]{
+    ${pageFields},
+    "logos": clients[defined(logo.asset)]{ name, width, "crop": logo.crop, "asset": logo.asset->${assetFields} }
   }
 }`;
 
@@ -50,6 +63,11 @@ async function fetchContent() {
   if (!result.home) throw new Error("The home page is missing in Sanity. Publish it in the studio.");
   if (!result.home.heroPhoto?.asset) throw new Error("The home page main photo is missing in Sanity.");
   if (!result.home.servicesPhoto?.asset) throw new Error("The services photo is missing in Sanity.");
+  for (const page of ["about", "work", "services", "clients"]) {
+    if (!result[page]) throw new Error(`The ${page} page is missing in Sanity. Publish it in the studio.`);
+  }
+  if (!result.about.photo?.asset) throw new Error("The about page photo is missing in Sanity.");
+  if (!result.services.photo?.asset) throw new Error("The services page photo is missing in Sanity.");
   return result;
 }
 
@@ -87,11 +105,23 @@ function hotspotPosition(hotspot, rect, asset) {
   return `${percent(x)} ${percent(y)}`;
 }
 
+function slugify(text) {
+  return text
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60)
+    .replace(/-+$/g, "");
+}
+
 function automaticLogoWidth(width, height) {
   return Math.round(Math.min(235, Math.max(100, 67 * Math.sqrt(width / height))));
 }
 
-function toSiteContent({ settings, home }, isRemote) {
+function toSiteContent({ settings, home, about, work, services, clients }, isRemote) {
   const files = [];
 
   const image = (asset, crop) => {
@@ -119,6 +149,45 @@ function toSiteContent({ settings, home }, isRemote) {
     };
   };
 
+  const page = (document) => ({
+    title: document.title,
+    intro: document.intro ?? "",
+    description: document.description ?? "",
+  });
+
+  const logos = (clients.logos ?? []).map((client) => {
+    const { src, width, height } = image(client.asset, client.crop);
+    return { name: client.name, src, width, height, displayWidth: client.width ?? automaticLogoWidth(width, height) };
+  });
+
+  const usedSlugs = new Set();
+  const uniqueSlug = (preferred) => {
+    const base = slugify(preferred) || "project";
+    let candidate = base;
+    for (let suffix = 2; usedSlugs.has(candidate); suffix += 1) candidate = `${base}-${suffix}`;
+    usedSlugs.add(candidate);
+    return candidate;
+  };
+
+  const projects = (work.projects ?? []).map((project) => ({
+    title: project.title.trim(),
+    slug: uniqueSlug(project.slug || project.title),
+    photos: project.images.map((item, index) =>
+      photo({
+        credit: project.title,
+        alt: item.alt?.trim() || `${project.title.trim()}, photo ${index + 1}`,
+        crop: item.crop,
+        hotspot: item.hotspot,
+        asset: item.asset,
+      }),
+    ),
+  }));
+
+  const serviceItems = (services.items ?? []).map((item) => ({
+    name: item.name.trim(),
+    description: item.description?.trim() ?? "",
+  }));
+
   const content = {
     settings: {
       email: settings.email,
@@ -132,21 +201,23 @@ function toSiteContent({ settings, home }, isRemote) {
       contactLabel: home.contactLabel,
       heroPhoto: photo(home.heroPhoto),
       about: { statement: home.aboutStatement, text: home.aboutText ?? "" },
-      clients: {
-        heading: home.clientsHeading,
-        logos: (home.clients ?? []).map((client) => {
-          const { src, width, height } = image(client.asset, client.crop);
-          return { name: client.name, src, width, height, displayWidth: client.width ?? automaticLogoWidth(width, height) };
-        }),
-      },
-      work: { heading: home.workHeading, photos: (home.work ?? []).map(photo) },
+      clientsHeading: home.clientsHeading,
+      workHeading: home.workHeading,
       services: {
         heading: home.servicesHeading,
         intro: home.servicesIntro ?? "",
-        items: home.services ?? [],
         photo: photo(home.servicesPhoto),
       },
     },
+    about: {
+      ...page(about),
+      statement: about.statement,
+      paragraphs: (about.paragraphs ?? []).map((paragraph) => paragraph.trim()).filter(Boolean),
+      photo: photo(about.photo),
+    },
+    work: { ...page(work), projects },
+    services: { ...page(services), items: serviceItems, photo: photo(services.photo) },
+    clients: { ...page(clients), logos },
   };
 
   return { content, files };
@@ -188,8 +259,9 @@ async function writeContent(content) {
   await writeFile(contentFile, `${JSON.stringify(content, null, 2)}\n`);
 }
 
-function summary({ home }) {
-  return `${home.work.photos.length} work photos, ${home.clients.logos.length} logos, ${home.services.items.length} services`;
+function summary({ work, clients, services }) {
+  const photos = work.projects.reduce((total, project) => total + project.photos.length, 0);
+  return `${work.projects.length} projects (${photos} photos), ${clients.logos.length} logos, ${services.items.length} services`;
 }
 
 async function syncRemote() {

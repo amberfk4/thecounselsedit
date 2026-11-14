@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { navigation, site } from "@/content/site";
 import { instagramUrl, settings } from "@/lib/content";
 
@@ -10,9 +11,9 @@ export function Contact() {
       <div className="flex flex-wrap gap-x-[clamp(3rem,8vw,8rem)] gap-y-8 p-gutter pt-[clamp(3rem,6vw,6rem)]">
         <nav aria-label="Footer" className="flex flex-col items-start gap-1">
           {navigation.map((item) => (
-            <a key={item.href} className="stroke-link" href={item.href}>
+            <Link key={item.href} className="stroke-link" href={item.href}>
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
         <div className="flex flex-col items-start gap-1">

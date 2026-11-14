@@ -99,12 +99,21 @@ export function createBulkUploadInput({ label, toItem }: BulkUploadConfig) {
   };
 }
 
-export const PhotosBulkUploadInput = createBulkUploadInput({
+export const ImagesBulkUploadInput = createBulkUploadInput({
   label: "Upload multiple photos",
   toItem: (assetId, _file, key) => ({
-    _type: "photo",
+    ...imageReference(assetId),
     _key: key,
-    image: imageReference(assetId),
+  }),
+});
+
+export const ProjectsBulkUploadInput = createBulkUploadInput({
+  label: "Upload multiple photos",
+  toItem: (assetId, file, key) => ({
+    _type: "project",
+    _key: key,
+    title: nameFromFile(file),
+    images: [{ ...imageReference(assetId), _key: `${key}-image` }],
   }),
 });
 

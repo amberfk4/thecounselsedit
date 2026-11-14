@@ -3,10 +3,9 @@ import { structureTool } from "sanity/structure";
 import { media } from "sanity-plugin-media";
 import { dataset, projectId } from "./env";
 import { schemaTypes } from "./schemaTypes";
-import { structure } from "./structure";
+import { singletonTypes, structure } from "./structure";
 
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
-const singletonTypes = new Set(["homePage", "siteSettings"]);
 
 export default defineConfig({
   name: "default",

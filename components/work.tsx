@@ -1,27 +1,12 @@
-import { home } from "@/lib/content";
-import { SanityImage } from "./sanity-image";
+import { home, work } from "@/lib/content";
+import { ProjectCards } from "./project-cards";
+import { SectionHeading } from "./section-heading";
 
 export function Work() {
   return (
-    <section id="work" className="border-y border-navy bg-taupe text-ink">
-      <h2 className="border-b border-navy p-gutter">{home.work.heading}</h2>
-      <ul className="grid grid-cols-2 md:grid-cols-4">
-        {home.work.photos.map((photo) => (
-          <li
-            key={photo.src}
-            className="border-r border-b border-navy p-[clamp(1rem,3vw,3rem)] even:border-r-0 md:border-b-0 md:even:border-r md:last:border-r-0"
-          >
-            <figure>
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <SanityImage photo={photo} sizes="(min-width: 48rem) 20vw, 42vw" />
-              </div>
-              {photo.credit && (
-                <figcaption className="mt-4 text-center text-small">{photo.credit}</figcaption>
-              )}
-            </figure>
-          </li>
-        ))}
-      </ul>
+    <section id="work" className="border-t border-navy bg-taupe text-ink">
+      <SectionHeading title={home.workHeading} link={{ href: "/work", label: "View all" }} />
+      <ProjectCards projects={work.projects.slice(0, 4)} />
     </section>
   );
 }

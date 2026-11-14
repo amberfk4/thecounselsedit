@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { navigation, site } from "@/content/site";
 import { home, instagramUrl, settings } from "@/lib/content";
 import { PanelLink } from "./panel-link";
@@ -30,15 +31,15 @@ export function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-30 h-bar bg-navy text-white">
       <div className="relative flex h-full items-center justify-between px-gutter">
-        <a href="#top" className="wordmark" aria-label={`${site.name}, home`}>
+        <Link href="/" className="wordmark" aria-label={`${site.name}, home`}>
           {site.name}_
-        </a>
+        </Link>
 
         <nav aria-label="Main" className="absolute left-1/2 hidden -translate-x-1/2 gap-7 lg:flex">
           {navigation.map((item) => (
-            <a key={item.href} className="nav-link stroke-link" href={item.href}>
+            <Link key={item.href} className="nav-link stroke-link" href={item.href}>
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 

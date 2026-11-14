@@ -1,6 +1,5 @@
 import { HomeIcon } from "@sanity/icons/Home";
-import { defineArrayMember, defineField, defineType } from "sanity";
-import { LogosBulkUploadInput, PhotosBulkUploadInput } from "../components/BulkUploadInput";
+import { defineField, defineType } from "sanity";
 
 export const homePage = defineType({
   name: "homePage",
@@ -67,38 +66,23 @@ export const homePage = defineType({
     defineField({
       name: "clientsHeading",
       title: "Heading",
+      description: "The logos come from the Clients page.",
       type: "string",
       group: "clients",
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "clients",
-      title: "Client logos",
-      type: "array",
-      group: "clients",
-      description: "Drag to reorder. Use “Upload multiple logos” to add several at once.",
-      of: [defineArrayMember({ type: "clientLogo" })],
-      components: { input: LogosBulkUploadInput },
     }),
     defineField({
       name: "workHeading",
       title: "Heading",
+      description: "Shows the first four projects from the Work page.",
       type: "string",
       group: "work",
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "work",
-      title: "Projects",
-      type: "array",
-      group: "work",
-      description: "Drag to reorder. Use “Upload multiple photos” to add several at once, then add a credit to each.",
-      of: [defineArrayMember({ type: "photo" })],
-      components: { input: PhotosBulkUploadInput },
-    }),
-    defineField({
       name: "servicesHeading",
       title: "Heading",
+      description: "The list of services comes from the Services page.",
       type: "string",
       group: "services",
       validation: (rule) => rule.required(),
@@ -109,14 +93,6 @@ export const homePage = defineType({
       type: "text",
       rows: 3,
       group: "services",
-    }),
-    defineField({
-      name: "services",
-      title: "Services",
-      type: "array",
-      group: "services",
-      description: "Drag to reorder.",
-      of: [defineArrayMember({ type: "string" })],
     }),
     defineField({
       name: "servicesPhoto",

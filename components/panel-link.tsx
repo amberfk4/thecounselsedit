@@ -1,15 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import type { ComponentProps, MouseEvent } from "react";
 
 function closeOwningPanel(event: MouseEvent<HTMLAnchorElement>) {
   event.currentTarget.closest<HTMLElement>("[popover]")?.hidePopover();
 }
 
-export function PanelLink({ children, ...props }: ComponentProps<"a">) {
+export function PanelLink({ children, ...props }: ComponentProps<typeof Link>) {
   return (
-    <a {...props} onClick={closeOwningPanel}>
+    <Link {...props} onClick={closeOwningPanel}>
       {children}
-    </a>
+    </Link>
   );
 }

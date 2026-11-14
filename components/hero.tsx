@@ -1,5 +1,6 @@
 import { home, settings } from "@/lib/content";
 import { SanityImage } from "./sanity-image";
+import { SignedText } from "./signed-text";
 
 export function Hero() {
   const [first, second, third] = home.headline;
@@ -12,9 +13,8 @@ export function Hero() {
           <span className="block md:inline">{first}</span>{" "}
           <span className="block md:inline">{second}</span>
         </span>
-        <span className="flex flex-wrap items-end">
-          <span>{third}</span>
-          <span aria-hidden="true" className="signing-line mb-[0.2em]" />
+        <span className="block">
+          <SignedText text={third} />
         </span>
       </h1>
 
